@@ -22,19 +22,19 @@ npm install @blazium/sdk
 ## Quick Start
 
 ```typescript
-import { BlaziumPayClient } from '@blazium/sdk';
+import { BlaziumPayClient, BlaziumEnvironment, BlaziumFiat } from '@blazium/sdk';
 
 const client = new BlaziumPayClient({
-  apiKey: process.env.BLAZIUM_API_KEY,
+  apiKey: process.env.BLAZIUM_API_KEY as string,
   webhookSecret: process.env.BLAZIUM_WEBHOOK_SECRET,
-  environment: 'production'
+  environment: BlaziumEnvironment.PRODUCTION
 });
 
 // Create payment with locked reward
 const payment = await client.createPayment(
   {
     amount: 10.00,
-    currency: 'USD',
+    currency: BlaziumFiat.USD,
     description: 'Premium Pack',
     rewardAmount: 400,
     rewardCurrency: 'coins'
@@ -298,7 +298,7 @@ import type {
 ## Support
 
 - Documentation: https://docs.blaziumpay.com
-- Issues: https://github.com/blaziumdev/blaziumpay-sdk/issues
+- Issues: https://github.com/blaziumpay/sdk/issues
 - Email: support@blaziumpay.com
 
 ## License
