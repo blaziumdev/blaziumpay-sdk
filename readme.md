@@ -16,36 +16,49 @@ Official Node.js SDK for BlaziumPay - Production-ready crypto payment infrastruc
 ## Installation
 
 ```bash
-npm install @blazium/sdk
+npm install @blazium/sdk dotenv
+```
+
+## Configuration
+
+Create a `.env` file in your project root:
+
+```env
+BLAZIUM_API_KEY=bz_test_...
+BLAZIUM_WEBHOOK_SECRET=whsec_...
 ```
 
 ## Quick Start
 
 ```typescript
+import 'dotenv/config'; // Load environment variables
 import { BlaziumPayClient, BlaziumEnvironment, BlaziumFiat } from '@blazium/sdk';
 
-const client = new BlaziumPayClient({
-  apiKey: process.env.BLAZIUM_API_KEY as string,
-  webhookSecret: process.env.BLAZIUM_WEBHOOK_SECRET,
-  environment: BlaziumEnvironment.PRODUCTION
-});
+// Wrap in async function to allow await
+(async () => {
+  const client = new BlaziumPayClient({
+    apiKey: process.env.BLAZIUM_API_KEY as string,
+    webhookSecret: process.env.BLAZIUM_WEBHOOK_SECRET,
+    environment: BlaziumEnvironment.PRODUCTION
+  });
 
-// Create payment with locked reward
-const payment = await client.createPayment(
-  {
-    amount: 10.00,
-    currency: BlaziumFiat.USD,
-    description: 'Premium Pack',
-    rewardAmount: 400,
-    rewardCurrency: 'coins'
-  },
-  {
-    idempotencyKey: 'order_12345'
-  }
-);
+  // Create payment with locked reward
+  const payment = await client.createPayment(
+    {
+      amount: 10.00,
+      currency: BlaziumFiat.USD,
+      description: 'Premium Pack',
+      rewardAmount: 400,
+      rewardCurrency: 'coins'
+    },
+    {
+      idempotencyKey: 'order_12345'
+    }
+  );
 
-console.log('Checkout URL:', payment.checkoutUrl);
-console.log('Reward (LOCKED):', payment.rewardAmount); // Always 400
+  console.log('Checkout URL:', payment.checkoutUrl);
+  console.log('Reward (LOCKED):', payment.rewardAmount); // Always 400
+})();
 ```
 
 ## Core Concepts
