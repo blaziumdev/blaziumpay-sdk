@@ -311,7 +311,7 @@ import type {
 ## Support
 
 - Documentation: https://docs.blaziumpay.com
-- Issues: https://github.com/blaziumpay/sdk/issues
+- Issues: https://github.com/blaziumdev/blaziumpay-sdk/issues
 - Email: support@blaziumpay.com
 
 ## License
